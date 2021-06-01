@@ -11,6 +11,7 @@
 
     <artifactId>shop-user</artifactId>
 
+
     <!-- 依赖 -->
     <dependencies>
         <!-- springbot-web -->
