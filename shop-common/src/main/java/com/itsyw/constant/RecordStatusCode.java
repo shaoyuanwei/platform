@@ -31,14 +31,14 @@ public enum  RecordStatusCode {
     /**
      * 是否启用
      */
-    DATA_IS_ENABLE_FALSE(0, "否"),
-    DATA_IS_ENABLE_TRUE(1, "是"),
+    RECORD_IS_ENABLE_FALSE(0, "否"),
+    RECORD_IS_ENABLE_TRUE(1, "是"),
     /**
      * 使用情况
      */
-    DATA_IS_USED_FALSE(0, "未使用"),
-    DATA_IS_USED_TRUE(1, "正常"),
-    DATA_IS_USED_BAD(2, "报废");
+    RECORD_IS_USED_FALSE(0, "未使用"),
+    RECORD_IS_USED_TRUE(1, "正常"),
+    RECORD_IS_USED_BAD(2, "报废");
 
     @Setter
     private int code;
