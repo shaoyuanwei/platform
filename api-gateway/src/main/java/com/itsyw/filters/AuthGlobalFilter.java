@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
  * @Date: 2021/3/12 14:49
  * @Version: 1.0
  * TODO: 自定义全局过滤器，作用是统一鉴权
- * 要求：比须实现两个接口，并且实现里面的两个方法
+ * 要求：必须实现两个接口，并且实现里面的两个方法
  */
 @Slf4j
 @Component

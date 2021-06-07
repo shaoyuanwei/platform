@@ -11,6 +11,11 @@
     <artifactId>api-gateway</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.itsyw</groupId>
+            <artifactId>shop-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- gateway 注意：此模块不能引入starter-web -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

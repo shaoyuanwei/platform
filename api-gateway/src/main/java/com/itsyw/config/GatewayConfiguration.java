@@ -11,6 +11,8 @@ import com.alibaba.csp.sentinel.adapter.gateway.sc.SentinelGatewayFilter;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.exception.SentinelGatewayBlockExceptionHandler;
+import com.itsyw.constant.HttpStatusCode;
+import com.itsyw.utils.R;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
@@ -92,12 +94,10 @@ public class GatewayConfiguration  {
 
             @Override
             public Mono<ServerResponse> handleRequest(ServerWebExchange serverWebExchange, Throwable throwable) {
-                Map map = new HashMap<>(16);
-                map.put("code", 0);
-                map.put("message", "接口被限流了");
+                R r = R.error(HttpStatusCode.HTTP_FAIL.getCode(), "接口被限流了");
                 return ServerResponse.status(HttpStatus.OK).
                         contentType(MediaType.APPLICATION_JSON_UTF8).
-                        body(BodyInserters.fromObject(map));
+                        body(BodyInserters.fromObject(r));
             }
         };
         GatewayCallbackManager.setBlockHandler(blockRequestHandler);
