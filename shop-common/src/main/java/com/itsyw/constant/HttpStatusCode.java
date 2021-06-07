@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 public enum HttpStatusCode {
     /**
+     * 1 Fail 失败
      * 100	Continue	继续.客户端应继续其请求
      * 101	Switching Protocols	切换协议.服务器根据客户端的请求切换协议.只能切换到更高级的协议,例如,切换到HTTP的新版本协议
      * 200	OK	请求成功.一般用于GET与POST请求
@@ -54,6 +55,7 @@ public enum HttpStatusCode {
      * 504	Gateway Time-out	充当网关或代理的服务器,未及时从远端服务器获取请求
      * 505	HTTP Version not supported	服务器不支持请求的HTTP协议的版本,无法完成处理
      */
+    HTTP_FAIL(1, "失败"),
     HTTP_CONTINUE(100, "继续"),
     HTTP_SWITCHING_PROTOCOLS(101, "切换协议"),
     HTTP_OK(200, "请求成功"),
