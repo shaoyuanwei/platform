@@ -29,7 +29,7 @@ public class UserController {
      * @param username
      * @return
      */
-    @RequestMapping("/product/{username}")
+    @RequestMapping("/info/{username}")
     public User getOne(@PathVariable("username") String username) {
 
         log.info("用户账号{}号信息查询", username);
