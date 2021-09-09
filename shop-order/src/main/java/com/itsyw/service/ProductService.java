@@ -1,5 +1,6 @@
 package com.itsyw.service;
 
+import com.itsyw.config.FeginConfig;
 import com.itsyw.domain.Product;
 import com.itsyw.service.fallback.ProductServiceFallBack;
 import com.itsyw.service.fallback.ProductServiceFallbackFactory;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 // fallback 用于指定当前fegin接口的容错类
 @FeignClient(value = "service-product",
 //        fallback = ProductServiceFallBack.class,
+        configuration = FeginConfig.class,
         fallbackFactory = ProductServiceFallbackFactory.class)
 public interface ProductService {
 

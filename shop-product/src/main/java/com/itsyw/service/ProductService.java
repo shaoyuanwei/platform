@@ -2,6 +2,8 @@ package com.itsyw.service;
 
 import com.itsyw.domain.Product;
 
+import java.util.List;
+
 /**
  * @Author: YuanWei Shao
  * @Date: 2020/11/2 13:45
@@ -16,4 +18,7 @@ public interface ProductService {
      * @return
      */
     Product findByPId(Integer pid);
+
+    List<Product> list();
+
 }

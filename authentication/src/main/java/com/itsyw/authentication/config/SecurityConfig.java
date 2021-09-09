@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/oauth/**").permitAll()
+                .antMatchers("/oauth/**", "/info/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -59,6 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 内存模式下创建的用户
 
         com.itsyw.domain.User user = userService.findByUsername("admin");
+
+        System.out.println(user.toString());
 
         log.info("user：{}", JSONObject.toJSONString(user));
 

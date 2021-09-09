@@ -38,7 +38,7 @@ spring:
         - id: oauth
           uri: lb://service-auth
           predicates:
-            - Path=/oauth/*
+            - Path=/oauth/**
         - id: product_route # routeId, 默认为UUID
           uri: lb://service-product # lb 从nacos中获取服务信息，service-product是服务的名称
           order: 1 # 优先级，数字越小，优先级越高

@@ -20,7 +20,7 @@ public interface UserService {
 
     // @FeginClient得value + @RequestMapping得value值 就是完成得请求地址 "http://service-product/product/{pid}"
     // 指定请求得URI部分
-    @RequestMapping("/product/{username}")
+    @RequestMapping("/info/{username}")
     User findByUsername(@PathVariable("username") String username);
 
 }

@@ -37,20 +37,16 @@ public class LogGatewayFilterFactory extends AbstractGatewayFilterFactory<LogGat
     @Override
     public GatewayFilter apply(Config config) {
 
-        GatewayFilter gatewayFilter = new GatewayFilter() {
+        GatewayFilter gatewayFilter = (exchange, chain) -> {
 
-            @Override
-            public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-
-                if (config.isCacheLog()) {
-                    System.out.println("cacheLog已经开启了");
-                }
-                if (config.isConsoleLog()) {
-                    System.out.println("consoleLog已经开启了");
-                }
-
-                return chain.filter(exchange);
+            if (config.isCacheLog()) {
+                System.out.println("cacheLog已经开启了");
             }
+            if (config.isConsoleLog()) {
+                System.out.println("consoleLog已经开启了");
+            }
+
+            return chain.filter(exchange);
         };
 
         return gatewayFilter;

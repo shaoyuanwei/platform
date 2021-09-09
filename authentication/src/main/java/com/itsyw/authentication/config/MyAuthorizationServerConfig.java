@@ -74,10 +74,13 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
         TokenEnhancerChain tokenEnhancer = new TokenEnhancerChain();
         tokenEnhancer.setTokenEnhancers(Collections.singletonList(jwtAccessTokenConverter1));
         tokenServices.setTokenEnhancer(tokenEnhancer);
+        // refresh_token 允许支持书新token
+        tokenServices.setSupportRefreshToken(true);
         // token 有效期2小时
         tokenServices.setAccessTokenValiditySeconds(2 * 60 * 60);
         // 刷新token有效期 7天
         tokenServices.setRefreshTokenValiditySeconds(7 * 24 * 60 * 60);
+        tokenServices.setReuseRefreshToken(true);
 
         return tokenServices;
 
@@ -111,8 +114,9 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
                 .secret(new BCryptPasswordEncoder().encode("Shop_PKQ"))
                 // 客户端允许的授权模式
                 .authorities("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
+                .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
                 // 允许的授权范围
-                .scopes("all", "read", "write")
+                .scopes("all", "write", "read")
                 // 验证回调地址
                 .redirectUris("https://www.baidu.com")
                 .and()
@@ -120,8 +124,9 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
                 .secret(new BCryptPasswordEncoder().encode("Shop_PKQ"))
                 // 客户端允许的授权模式
                 .authorities("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
+                .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
                 // 允许的授权范围
-                .scopes("all", "read", "write")
+                .scopes("all", "write", "read")
                 // 验证回调地址
                 .redirectUris("https://www.baidu.com")
                 .and()

@@ -6,6 +6,8 @@ import com.itsyw.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author: YuanWei Shao
  * @Date: 2020/11/2 13:45
@@ -21,5 +23,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findByPId(Integer pid) {
         return productDao.findById(pid).get();
+    }
+
+    @Override
+    public List<Product> list() {
+        return productDao.findAll();
     }
 }
