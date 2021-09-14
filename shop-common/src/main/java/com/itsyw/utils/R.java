@@ -1,5 +1,6 @@
 package com.itsyw.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.itsyw.constant.HttpStatusCode;
 
 import java.util.HashMap;
@@ -35,6 +36,12 @@ public class R extends HashMap<String, Object> {
         return r;
     }
 
+    public static R ok(Object t) {
+        R r = new R();
+        r.put("data", JSONObject.toJSONString(t));
+        return r;
+    }
+
     public static R ok(Map<String, Object> map) {
         R r = new R();
         r.putAll(map);
@@ -50,4 +57,5 @@ public class R extends HashMap<String, Object> {
         super.put(key, value);
         return this;
     }
+
 }

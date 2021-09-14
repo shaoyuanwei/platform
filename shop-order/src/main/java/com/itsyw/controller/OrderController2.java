@@ -52,7 +52,7 @@ public class OrderController2 {
         order.setUid(1);
         order.setUsername("测试用户");
         order.setPid(pid);
-        order.setPname(product.getPanem());
+        order.setPname(product.getPname());
         order.setPprice(product.getPprice());
         order.setNumber(1);
 

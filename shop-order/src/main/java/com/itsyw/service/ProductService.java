@@ -2,7 +2,7 @@ package com.itsyw.service;
 
 import com.itsyw.config.FeginConfig;
 import com.itsyw.domain.Product;
-import com.itsyw.service.fallback.ProductServiceFallBack;
+//import com.itsyw.service.fallback.ProductServiceFallBack;
 import com.itsyw.service.fallback.ProductServiceFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;

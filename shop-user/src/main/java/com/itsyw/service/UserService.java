@@ -18,4 +18,6 @@ public interface UserService {
      */
     User findByPUsername(String username);
 
+    User save(User user);
+
 }

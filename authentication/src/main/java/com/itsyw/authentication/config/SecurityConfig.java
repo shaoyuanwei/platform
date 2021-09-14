@@ -1,19 +1,17 @@
 package com.itsyw.authentication.config;
 
-import com.alibaba.fastjson.JSONObject;
+import com.itsyw.authentication.component.CustomPasswordEncoder;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+import javax.annotation.Resource;
 
 /**
  * @Author: YuanWei Shao
@@ -26,6 +24,23 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Resource(name = "userDetailService")
+    private UserDetailsService userDetailsService;
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        log.error("userDetailsService:{}", userDetailsService);
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(new CustomPasswordEncoder());
+        auth.parentAuthenticationManager(authenticationManagerBean());
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -35,13 +50,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .usernameParameter("username")
-                .passwordParameter(new BCryptPasswordEncoder().encode("password"))
-                .loginPage("/authentication/login")
-                .failureUrl("/authentication/login?failed")
-                .loginProcessingUrl("/authentication/login/process");
+                .successForwardUrl("http://localhost:8080")
+                .failureForwardUrl("http://localhost:8080?failure")
+                .permitAll();
+//                .usernameParameter("username")
+//                .passwordParameter(new BCryptPasswordEncoder().encode("password"))
+//                .loginPage("/authentication/login")
+//                .failureUrl("/authentication/login?failed")
+//                .loginProcessingUrl("/authentication/login/process");
     }
-
+/*
     @Bean
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -72,8 +90,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         userDetailsManager.createUser(developer);
         return userDetailsManager;
 
-    }
-
-
+    }*/
 
 }

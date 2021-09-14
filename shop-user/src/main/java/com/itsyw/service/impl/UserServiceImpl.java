@@ -4,10 +4,12 @@ import com.itsyw.dao.UserDao;
 import com.itsyw.domain.Product;
 import com.itsyw.domain.User;
 import com.itsyw.service.UserService;
+import com.itsyw.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.util.Optional;
 
@@ -30,5 +32,11 @@ public class UserServiceImpl implements UserService {
         Example<User> e = Example.of(user);
         Optional<User> one = userDao.findOne(e);
         return one.get();
+    }
+
+    @Override
+    public User save(User user) {
+        user.setPassword(DigestUtils.md5DigestAsHex((MD5Utils.SALT + user.getPassword()).getBytes()));
+        return userDao.save(user);
     }
 }

@@ -1,10 +1,12 @@
 package com.itsyw.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.itsyw.constant.HttpStatusCode;
 import com.itsyw.domain.Order;
 import com.itsyw.domain.Product;
 import com.itsyw.service.OrderService;
 import com.itsyw.service.ProductService;
+import com.itsyw.utils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +31,17 @@ import java.util.Random;
 public class OrderController {
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
     private OrderService orderService;
 
     @Autowired
     private ProductService productService;
-
-    @Autowired
-    private DiscoveryClient discoveryClient;
 
     /**
      * 用户下单，订单创建5-- fegin
      * @return
      */
     @RequestMapping("/order/prod/{pid}")
-    public Order createOrder(@PathVariable("pid") Integer pid){
+    public R createOrder(@PathVariable("pid") Integer pid){
 
         log.info("接收到{}号商品的下单请求,接下来调用商品微服务查询此商品信息", pid);
 
@@ -56,7 +52,9 @@ public class OrderController {
             Order order = new Order();
             order.setOid(-100L);
             order.setPname("下单失败");
-            return order;
+
+            return R.error(HttpStatusCode.HTTP_GONE.getCode(), HttpStatusCode.HTTP_GONE.getDescribe());
+
         }
 
         log.info("查询到{}号商品的信息,内容是{}", pid, JSON.toJSONString(product));
@@ -66,7 +64,7 @@ public class OrderController {
         order.setUid(1);
         order.setUsername("测试用户");
         order.setPid(pid);
-        order.setPname(product.getPanem());
+        order.setPname(product.getPname());
         order.setPprice(product.getPprice());
         order.setNumber(1);
 
@@ -75,7 +73,7 @@ public class OrderController {
 
         log.info("创建订单成功,订单信息为{}", JSON.toJSONString(order));
 
-        return order;
+        return R.ok(order);
     }
 
     /**
