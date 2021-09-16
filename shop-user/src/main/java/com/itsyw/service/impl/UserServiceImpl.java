@@ -8,6 +8,7 @@ import com.itsyw.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        user.setPassword(DigestUtils.md5DigestAsHex((MD5Utils.SALT + user.getPassword()).getBytes()));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         return userDao.save(user);
     }
 }

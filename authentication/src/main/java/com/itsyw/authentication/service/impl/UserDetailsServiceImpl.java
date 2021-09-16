@@ -1,5 +1,6 @@
 package com.itsyw.authentication.service.impl;
 
+import com.itsyw.authentication.component.CustomPasswordEncoder;
 import com.itsyw.authentication.dao.UserDao;
 import com.itsyw.domain.User;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("登录用户[{}]没注册!", username);
             throw new UsernameNotFoundException("登录用户[" + username + "]没注册!");
         }
+
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
     }
 

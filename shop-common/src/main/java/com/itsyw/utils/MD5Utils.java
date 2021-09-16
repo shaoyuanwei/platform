@@ -12,4 +12,10 @@ public class MD5Utils {
 
     public static final String SALT = "SYW-XQL";
 
+    public static void main(String[] args) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encode = encoder.encode("sywai951130");
+        System.out.println(encode);
+    }
+
 }

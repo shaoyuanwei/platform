@@ -1,15 +1,21 @@
 package com.itsyw.authentication.config;
 
-import com.itsyw.authentication.component.CustomPasswordEncoder;
+import com.itsyw.authentication.component.filter.LoginFilter;
+import com.itsyw.authentication.component.provider.CustomAuthenticationProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
 
@@ -28,16 +34,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    public LoginFilter loginFilter() throws Exception {
+        LoginFilter loginFilter = new LoginFilter();
+        loginFilter.setAuthenticationManager(authenticationManagerBean());
+        return loginFilter;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        return new CustomAuthenticationProvider(userDetailsService);
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         log.error("userDetailsService:{}", userDetailsService);
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(new CustomPasswordEncoder());
+        auth.authenticationProvider(authenticationProvider())
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
         auth.parentAuthenticationManager(authenticationManagerBean());
     }
 
@@ -50,9 +74,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .successForwardUrl("http://localhost:8080")
-                .failureForwardUrl("http://localhost:8080?failure")
+                .loginPage("http://localhost:8080")
+                .successForwardUrl("/login/success")
+                .failureForwardUrl("/login/error")
+                .and().logout()
                 .permitAll();
+//                .and().addFilter(loginFilter());
 //                .usernameParameter("username")
 //                .passwordParameter(new BCryptPasswordEncoder().encode("password"))
 //                .loginPage("/authentication/login")
