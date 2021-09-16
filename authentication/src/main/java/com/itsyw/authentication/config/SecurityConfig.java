@@ -1,7 +1,7 @@
 package com.itsyw.authentication.config;
 
-import com.itsyw.authentication.component.filter.LoginFilter;
 import com.itsyw.authentication.component.provider.CustomAuthenticationProvider;
+import com.itsyw.authentication.component.provider.UsernameAuthenticationProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
 
@@ -45,41 +44,47 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public LoginFilter loginFilter() throws Exception {
-        LoginFilter loginFilter = new LoginFilter();
-        loginFilter.setAuthenticationManager(authenticationManagerBean());
-        return loginFilter;
+    public DaoAuthenticationProvider authenticationProvider() {
+        return new CustomAuthenticationProvider(userDetailsService);
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        return new CustomAuthenticationProvider(userDetailsService);
+    public AuthenticationProvider usernameAuthenticationProvider() {
+        return new UsernameAuthenticationProvider(userDetailsService);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         log.error("userDetailsService:{}", userDetailsService);
         auth.authenticationProvider(authenticationProvider())
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-        auth.parentAuthenticationManager(authenticationManagerBean());
+                .authenticationProvider(usernameAuthenticationProvider());
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder());
+//        auth.parentAuthenticationManager(authenticationManagerBean());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/oauth/**", "/info/**").permitAll()
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/oauth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("http://localhost:8080")
-                .successForwardUrl("/login/success")
-                .failureForwardUrl("/login/error")
-                .and().logout()
+                .defaultSuccessUrl("http://localhost:8080/start")
+                .failureForwardUrl("http://localhost:8080")
                 .permitAll();
-//                .and().addFilter(loginFilter());
+//        http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/oauth/**", "/info/**").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("http://localhost:8080")
+//                .successForwardUrl("/login/success")
+//                .failureForwardUrl("/login/error")
+//                .and().logout()
+//                .permitAll();
 //                .usernameParameter("username")
 //                .passwordParameter(new BCryptPasswordEncoder().encode("password"))
 //                .loginPage("/authentication/login")

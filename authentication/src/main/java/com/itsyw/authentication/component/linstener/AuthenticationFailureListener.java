@@ -2,13 +2,8 @@ package com.itsyw.authentication.component.linstener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.EventListener;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.event.*;
 import org.springframework.stereotype.Component;
-
-import java.util.LinkedHashMap;
 
 /**
  * @Author: YuanWei Shao
@@ -22,7 +17,7 @@ public class AuthenticationFailureListener implements ApplicationListener<Authen
 
     @Override
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent event) {
-        log.info("event:{}", event.getAuthentication().getPrincipal());
+        log.info("event.exception:{}", event.getException());
         log.error("----------失败--------------");
     }
 }
