@@ -1,8 +1,11 @@
 package com.itsyw.authentication.config;
 
+import com.itsyw.authentication.component.handler.CustomAuthenticationFailureHandler;
+import com.itsyw.authentication.component.handler.CustomAuthenticationSuccessHandler;
 import com.itsyw.authentication.component.provider.CustomAuthenticationProvider;
 import com.itsyw.authentication.component.provider.UsernameAuthenticationProvider;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource(name = "userDetailService")
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
+
+    @Autowired
+    private CustomAuthenticationFailureHandler authenticationFailureHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -56,8 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         log.error("userDetailsService:{}", userDetailsService);
-        auth.authenticationProvider(authenticationProvider())
-                .authenticationProvider(usernameAuthenticationProvider());
+        auth.authenticationProvider(authenticationProvider());
+//                .authenticationProvider(usernameAuthenticationProvider());
 //                .userDetailsService(userDetailsService)
 //                .passwordEncoder(passwordEncoder());
 //        auth.parentAuthenticationManager(authenticationManagerBean());
@@ -65,14 +74,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-                .antMatchers("/oauth/**").permitAll()
-                .anyRequest().authenticated()
+        http
+                // 关闭跨站请求伪造攻击拦截
+                .csrf().disable()
+                // 授权的配置
+                .authorizeRequests()
+                // 访问以下地址不需要进行身份认证了，防止重定向死循环
+                .antMatchers("/oauth/**", "/logout").permitAll()
+                // 任何请求
+                .anyRequest()
+                // 访问任何资源都需要身份认证
+                .authenticated()
                 .and()
+                // 表单登录
                 .formLogin()
-                .defaultSuccessUrl("http://localhost:8080/start")
-                .failureForwardUrl("http://localhost:8080")
-                .permitAll();
+                // 指定登录页面
+                .loginPage("http://localhost:8080/")
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
+                .and().logout().logoutSuccessUrl("/authentication/require");
 //        http
 //                .csrf().disable()
 //                .authorizeRequests()
