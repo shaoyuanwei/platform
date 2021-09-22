@@ -63,24 +63,18 @@ public class LoginController {
         return R.error("访问的服务需要身份认证，请引导用户到登录页");
     }
 
-    @DeleteMapping("/logout")
-    public R logout(@RequestParam("accessToken") String accessToken) {
+    @DeleteMapping("/userLogout")
+    public R logout(HttpServletRequest request) {
+
+        String accessToken = request.getHeader("Authorization");
+
+        accessToken = accessToken.split(" ")[1];
+        log.info("token:{}", accessToken);
+
         if (consumerTokenServices.revokeToken(accessToken)) {
             return R.ok("logout success");
         } else {
             return R.error("logout failure");
-        }
-    }
-
-    @GetMapping("/error")
-    public void loginError(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("text/html;charset=utf-8");
-        AuthenticationException exception = (AuthenticationException) request.getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
-
-        try {
-            response.getWriter().write(exception.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

@@ -39,9 +39,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/update").access("hasAuthority('update')")
-                .antMatchers("/get").access("hasAuthority('get')")
-                .antMatchers("/register").permitAll()
+//                .antMatchers("/update").access("hasAuthority('update')")
+//                .antMatchers("/get").access("hasAuthority('get')")
+                .antMatchers("/update", "/get", "/register").permitAll()
                 .anyRequest().authenticated();
 
     }

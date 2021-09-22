@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 授权的配置
                 .authorizeRequests()
                 // 访问以下地址不需要进行身份认证了，防止重定向死循环
-                .antMatchers("/oauth/**", "/logout").permitAll()
+                .antMatchers("/oauth/**", "/userLogout").permitAll()
                 // 任何请求
                 .anyRequest()
                 // 访问任何资源都需要身份认证
@@ -92,7 +92,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("http://localhost:8080/")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
-                .and().logout().logoutSuccessUrl("/authentication/require");
+                .and()
+                .logout()
+                .logoutUrl("/userLogout")
+                .logoutSuccessUrl("/authentication/require").permitAll();
 //        http
 //                .csrf().disable()
 //                .authorizeRequests()
