@@ -1,5 +1,6 @@
 package com.itsyw.authentication.component.provider;
 
+import com.itsyw.authentication.component.factory.CustomPasswordEncoderFactories;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -7,9 +8,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.Collection;
 
 /**
  * @Author: YuanWei Shao
@@ -23,7 +21,8 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
     public CustomAuthenticationProvider(UserDetailsService userDetailsService) {
         super();
         setUserDetailsService(userDetailsService);
-        setPasswordEncoder(new BCryptPasswordEncoder());
+//        setPasswordEncoder(new BCryptPasswordEncoder());
+        setPasswordEncoder(CustomPasswordEncoderFactories.createDelegatingPasswordEncoder());
     }
 
     @SuppressWarnings("deprecation")

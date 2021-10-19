@@ -1,6 +1,7 @@
 package com.itsyw.authentication.config;
 
 import com.itsyw.authentication.component.JdbcTokenStoreUserApprovalHandler;
+import com.itsyw.authentication.component.factory.CustomPasswordEncoderFactories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -67,10 +68,11 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         // 配置数据从oauth_client_details表读取来存储
-        clients.withClientDetails(clientDetailsService())
-                .jdbc()
-                .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());
-//        clients.jdbc(dataSource).passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());
+//        clients.withClientDetails(clientDetailsService())
+//                .jdbc()
+//                .passwordEncoder(CustomPasswordEncoderFactories.createDelegatingPasswordEncoder());
+//                .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());
+        clients.jdbc(dataSource).passwordEncoder(CustomPasswordEncoderFactories.createDelegatingPasswordEncoder());
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.itsyw.service;
 
-import com.itsyw.domain.Product;
 import com.itsyw.domain.User;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /**
  * @Author: YuanWei Shao
@@ -19,5 +21,9 @@ public interface UserService {
     User findByPUsername(String username);
 
     User save(User user);
+
+    Page<User> findAll(Integer pageNo);
+
+    List<User> findAll();
 
 }

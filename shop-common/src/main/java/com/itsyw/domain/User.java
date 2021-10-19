@@ -3,6 +3,7 @@ package com.itsyw.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @Author: YuanWei Shao
@@ -25,4 +26,20 @@ public class User {
     private String telephone;
 
     private String role;
+
+    private Integer state;
+
+    private Integer sex;
+
+    private Date createTime;
+
+    private Date birth;
+
+    private String sign;
+
+    private String email;
+
+    private String avachImg;
+
+    private String qq;
 }

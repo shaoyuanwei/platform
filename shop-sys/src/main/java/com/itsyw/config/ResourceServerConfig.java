@@ -41,7 +41,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers("/update").access("hasAuthority('update')")
 //                .antMatchers("/get").access("hasAuthority('get')")
-                .antMatchers("/info", "/get", "/register").permitAll()
                 .anyRequest().authenticated();
 
     }

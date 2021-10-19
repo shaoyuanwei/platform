@@ -23,17 +23,27 @@ java -jar zipkin-server-2.12.9-exec.jar
 ## rocketMQ
 
 启动nameServer：
-nohup ./bin/mqnamesrv &
+nohup ./bin/mqnamesrv
+
 查看日志:
 tail -f ~/logs/rocketmqlogs/namesr.log
+
 启动broker：
 nohup ./bin/mqbroker -m localhost:9876
+
 查看日志:
 tail -f ~/logs/rocketmqlogs/broker.log
+
 关闭：
 bin/mqshutdown broker
 bin/mqshutdown namesrc
+
 测试：
 export NAMESRV_ADDR=localhost:9876
+
 bin/tools.sh org.apache.example.quickstart.Producer
+
 bin/tools.sh org.apache.example.quickstart.Consumer
+
+## 前端使用 Vue3.0
+Axios+Element-plus+Vuex+Vue-router

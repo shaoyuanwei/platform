@@ -14,20 +14,4 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class AuthController {
-
-    @GetMapping("/get")
-    public R get() {
-        return R.ok().put("code", HttpStatusCode.HTTP_OK.getCode()).put("msg", "获取接口");
-    }
-
-    @PostMapping("/update")
-    public R update() {
-        return R.ok().put("code", HttpStatusCode.HTTP_OK.getCode()).put("msg", "更新接口");
-    }
-
-    @GetMapping("/info")
-    public R info() {
-        return R.ok().put("code", HttpStatusCode.HTTP_OK.getCode()).put("msg", "详情 自由查看 不受限制");
-    }
-
 }

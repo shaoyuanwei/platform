@@ -53,3 +53,9 @@ spring:
             - Path=/order-serv/**
           filters:
             - StripPrefix=1
+        - id: sys
+          uri: lb://service-sys
+          predicates:
+            - Path=/service-sys/**
+          filters:
+            - StripPrefix=1
