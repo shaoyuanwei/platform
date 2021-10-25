@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="shop-role-source" />
         <module name="shop-order" />
         <module name="api-gateway" />
         <module name="shop-product" />
@@ -24,6 +25,7 @@
       <module name="shop-common" options="-parameters" />
       <module name="shop-order" options="-parameters" />
       <module name="shop-product" options="-parameters" />
+      <module name="shop-role-source" options="-parameters" />
       <module name="shop-sys" options="-parameters" />
       <module name="shop-user" options="-parameters" />
       <module name="springcloud-alibaba" options="-parameters" />

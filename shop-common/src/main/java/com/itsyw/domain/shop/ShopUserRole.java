@@ -23,6 +23,6 @@ public class ShopUserRole {
 
     private Integer userId;
 
-    private Integer sourceId;
+    private Integer roleId;
 
 }

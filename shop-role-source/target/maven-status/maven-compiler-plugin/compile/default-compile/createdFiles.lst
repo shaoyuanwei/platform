@@ -1,0 +1,7 @@
+com\itsyw\service\UserRoleSourceService.class
+com\itsyw\config\TokenConfig.class
+com\itsyw\config\WebSecurityConfig.class
+com\itsyw\config\ResourceServerConfig.class
+com\itsyw\dao\UserRoleSourceDao.class
+com\itsyw\service\impl\UserRoleSourceServiceImpl.class
+com\itsyw\ShopRoleSourceApplication.class

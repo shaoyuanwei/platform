@@ -1,0 +1,8 @@
+com\itsyw\config\TokenConfig.class
+com\itsyw\config\WebSecurityConfig.class
+com\itsyw\service\impl\ProductServiceImpl.class
+com\itsyw\service\ProductService.class
+com\itsyw\config\ResourceServerConfig.class
+com\itsyw\dao\ProductDao.class
+com\itsyw\ProductApplication.class
+com\itsyw\controller\ProductController.class

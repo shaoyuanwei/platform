@@ -59,3 +59,9 @@ spring:
             - Path=/service-sys/**
           filters:
             - StripPrefix=1
+        - id: user-role-source
+          uri: lb://service-user-role-source
+          predicates:
+            - Path=/service-user-role-source/**
+          filters:
+            - StripPrefix=1
