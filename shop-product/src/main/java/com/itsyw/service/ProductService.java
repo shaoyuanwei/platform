@@ -14,11 +14,15 @@ public interface ProductService {
 
     /**
      * 根据pid查询商品信息
-     * @param pid
-     * @return
+     * @param pid 产品id
+     * @return Product
      */
     Product findByPId(Integer pid);
 
+    /**
+     * 商品列表
+     * @return List<Product>
+     */
     List<Product> list();
 
 }

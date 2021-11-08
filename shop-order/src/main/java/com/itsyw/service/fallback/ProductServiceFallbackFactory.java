@@ -16,7 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductServiceFallbackFactory implements FallbackFactory<ProductService> {
 
-    // Throwable 这就是fegin再调用过程中产生的异常
+    /**
+     * Throwable 这就是fegin再调用过程中产生的异常
+     * @param throwable 这就是fegin再调用过程中产生的异常
+     * @return ProductService
+     */
     @Override
     public ProductService create(Throwable throwable) {
 

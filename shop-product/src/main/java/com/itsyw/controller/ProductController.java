@@ -1,10 +1,8 @@
 package com.itsyw.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.itsyw.domain.Product;
 import com.itsyw.service.ProductService;
-import com.itsyw.utils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,8 +47,8 @@ public class ProductController {
     /**
      * 根据pid获取商品信息
      *
-     * @param pid
-     * @return
+     * @param pid 产品id
+     * @return Product
      */
     @RequestMapping("/product/{pid}")
     public Product getOne(@PathVariable("pid") Integer pid) {
@@ -68,7 +66,7 @@ public class ProductController {
     /**
      * 根据pid获取商品信息
      *
-     * @return
+     * @return List<Product>
      */
     @RequestMapping("/product/list")
     public List<Product> list() {

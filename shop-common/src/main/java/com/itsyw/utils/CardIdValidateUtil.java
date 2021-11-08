@@ -15,7 +15,7 @@ public class CardIdValidateUtil {
     /**
      * 区号
      */
-    final static Map<Integer, String> zoneNum = new HashMap<Integer, String>();
+    final static Map<Integer, String> zoneNum = new HashMap<>(16);
 
     static {
         zoneNum.put(11, "北京");
@@ -55,11 +55,11 @@ public class CardIdValidateUtil {
         zoneNum.put(91, "外国");
     }
 
-    final static int[] PARITYBIT = {'1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'};
+    final static int[] PARITY = {'1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'};
     final static int[] POWER_LIST = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10,
             5, 8, 4, 2};
 
-    public static boolean isIDCard(String cardId) {
+    public static boolean isIdCard(String cardId) {
 
         final char[] ids = cardId.toUpperCase().toCharArray();
 
@@ -84,24 +84,24 @@ public class CardIdValidateUtil {
 
         // TODO: 校验年份
         boolean isLeapYear = false;
-        final int iyear = Integer.parseInt(cardId.substring(6, 10));
-        if (iyear < 1900 || iyear > Calendar.getInstance().get(Calendar.YEAR)) {
+        final int year = Integer.parseInt(cardId.substring(6, 10));
+        if (year < 1900 || year > Calendar.getInstance().get(Calendar.YEAR)) {
             return false;
         }
 
-        if (iyear % 4 == 0 && iyear % 100 != 0 || iyear % 400 == 0) {
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
             isLeapYear = true;
         }
 
         // TODO: 校验月份
-        final int imonth = Integer.parseInt(cardId.substring(10, 12));
-        if (imonth < 1 || imonth > 12) {
+        final int month = Integer.parseInt(cardId.substring(10, 12));
+        if (month < 1 || month > 12) {
             return false;
         }
 
         // TODO: 检验天数
-        final int iday = Integer.parseInt(cardId.substring(12, 14));
-        switch (imonth) {
+        final int day = Integer.parseInt(cardId.substring(12, 14));
+        switch (month) {
             case 1:
             case 3:
             case 5:
@@ -109,7 +109,7 @@ public class CardIdValidateUtil {
             case 8:
             case 10:
             case 12:
-                if (iday < 1 || iday > 31) {
+                if (day < 1 || day > 31) {
                     return false;
                 }
                 break;
@@ -117,16 +117,17 @@ public class CardIdValidateUtil {
             case 6:
             case 9:
             case 11:
-                if (iday < 1 || iday > 31){
+                if (day < 1 || day > 30){
                     return false;
                 }
                 break;
             case 2:
                 if (isLeapYear) {
-                    if (iday < 1 || iday > 29) {
+                    if (day < 1 || day > 29) {
                         return false;
                     }
-                    if (iday < 1 || iday > 28) {
+                } else {
+                    if (day < 1 || day > 28) {
                         return false;
                     }
                 }
@@ -136,12 +137,12 @@ public class CardIdValidateUtil {
         }
 
         //  TODO: 校验 校验码(最后一位)
-        return ids[ids.length - 1] == PARITYBIT[power % 11];
+        return ids[ids.length - 1] == PARITY[power % 11];
 
     }
 
     public static void main(String[] args) {
-        boolean i = isIDCard("110203201511301421");
+        boolean i = isIdCard("110203201511301421");
         System.out.println(i);
     }
 

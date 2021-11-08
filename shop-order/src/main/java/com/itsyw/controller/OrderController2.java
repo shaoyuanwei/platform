@@ -7,11 +7,8 @@ import com.itsyw.service.OrderService;
 import com.itsyw.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * @Author: YuanWei Shao
@@ -65,7 +62,10 @@ public class OrderController2 {
         return order;
     }
 
-    // 测试高并发
+    /**
+     * 测试高并发
+     * @return String
+     */
     @RequestMapping("/order/message")
     public String message(){
         return "测试高并发";

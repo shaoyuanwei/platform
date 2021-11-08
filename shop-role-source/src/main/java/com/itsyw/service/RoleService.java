@@ -12,7 +12,16 @@ import java.util.List;
  */
 public interface RoleService {
 
+    /**
+     * 保存角色信息
+     * @param role 角色信息
+     * @return ShopRole
+     */
     ShopRole save(ShopRole role);
 
+    /**
+     * 查找所有角色
+     * @return List<ShopRole>
+     */
     List<ShopRole> find();
 }

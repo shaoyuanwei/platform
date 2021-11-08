@@ -1,18 +1,11 @@
 package com.itsyw.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.fastjson.JSON;
-import com.itsyw.domain.Order;
-import com.itsyw.domain.Product;
-import com.itsyw.service.OrderService;
-import com.itsyw.service.ProductService;
 import com.itsyw.service.impl.OrderServiceImpl3;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Author: YuanWei Shao

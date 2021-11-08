@@ -12,7 +12,18 @@ import java.util.List;
  */
 public interface SourceService {
 
+    /**
+     * 保存目录资源
+     *
+     * @param source 资源目录对象
+     * @return ShopSource
+     */
     ShopSource save(ShopSource source);
 
+    /**
+     * 查找所有目录资源
+     *
+     * @return List<ShopSource>
+     */
     List<ShopSource> find();
 }

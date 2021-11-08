@@ -3,7 +3,6 @@ package com.itsyw.authentication.service.impl;
 import com.itsyw.authentication.dao.OauthDao;
 import com.itsyw.authentication.service.OauthService;
 import com.itsyw.domain.OauthClientDetails;
-import com.itsyw.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;

@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -18,8 +17,8 @@ public class CustomPasswordEncoder implements PasswordEncoder {
 
 //    private static final String SALT = "SYW-XQL";
 
-    private static final String PREFIX = "{";
-    private static final String SUFFIX = "}";
+//    private static final String PREFIX = "{";
+//    private static final String SUFFIX = "}";
     private final String idForEncode;
     private final PasswordEncoder passwordEncoderForEncode;
     private final Map<String, PasswordEncoder> idToPasswordEncoder;
@@ -31,10 +30,8 @@ public class CustomPasswordEncoder implements PasswordEncoder {
         } else if (!idToPasswordEncoder.containsKey(idForEncode)) {
             throw new IllegalArgumentException("idForEncode " + idForEncode + "is not found in idToPasswordEncoder " + idToPasswordEncoder);
         } else {
-            Iterator var3 = idToPasswordEncoder.keySet().iterator();
 
-            while(var3.hasNext()) {
-                String id = (String)var3.next();
+            for (String id : idToPasswordEncoder.keySet()) {
                 if (id != null) {
                     if (id.contains("{")) {
                         throw new IllegalArgumentException("id " + id + " cannot contain " + "{");

@@ -1,7 +1,6 @@
 package com.itsyw.dao;
 
 import com.itsyw.domain.Order;
-import com.itsyw.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

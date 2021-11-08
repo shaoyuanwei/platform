@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         log.error("userDetailsService:{}", userDetailsService);
         auth.authenticationProvider(authenticationProvider());
 //                .authenticationProvider(usernameAuthenticationProvider());
@@ -114,37 +114,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .failureUrl("/authentication/login?failed")
 //                .loginProcessingUrl("/authentication/login/process");
     }
-/*
-    @Bean
-    @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
-    }
-
-    @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        // 内存模式下创建的用户
-        // 权限列表
-        UserDetails admin = User.withUsername("admin")
-                .password(new BCryptPasswordEncoder().encode("123456"))
-                // 角色
-                .roles("ADMIN", "DEVELOPER")
-                // 权限
-                .authorities("get", "update")
-                .build();
-        // 开发者
-        UserDetails developer = User.withUsername("developer")
-                .password(new BCryptPasswordEncoder().encode("123456"))
-                .roles("DEVELOPER")
-                .authorities("get")
-                .build();
-
-        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
-        userDetailsManager.createUser(admin);
-        userDetailsManager.createUser(developer);
-        return userDetailsManager;
-
-    }*/
 
 }

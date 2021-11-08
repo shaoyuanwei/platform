@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 限流页面
+ *
  * @Author: YuanWei Shao
  * @Date: 2020/12/31 16:23
  * @Version: 1.0
@@ -38,7 +40,7 @@ public class ExceptionHandlerPage implements UrlBlockHandler {
          * SystemBlockException 系统负载异常
          */
         httpServletResponse.setContentType("application/json;charset=utf-8");
-        ResponseData data =  null;
+        ResponseData data = null;
         if (e instanceof FlowException) {
             data = new ResponseData(-1, "接口被限流了");
         }
@@ -63,8 +65,7 @@ public class ExceptionHandlerPage implements UrlBlockHandler {
 
 @Data
 @AllArgsConstructor // 全参构造
-@NoArgsConstructor
-        // 无参构造
+@NoArgsConstructor // 无参构造 
 class ResponseData {
     private Integer code;
     private String message;

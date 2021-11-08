@@ -39,7 +39,8 @@ public class UserRoleSourceController {
 
     /**
      * 角色信息列表查询
-     * @return
+     *
+     * @return R
      */
     @GetMapping("/role/list")
     public R roleList() {
@@ -49,7 +50,8 @@ public class UserRoleSourceController {
 
     /**
      * 目录资源信息列表查询
-     * @return
+     *
+     * @return R
      */
     @GetMapping("/source/list")
     public R sourceList() {
@@ -59,8 +61,9 @@ public class UserRoleSourceController {
 
     /**
      * 根据角色id查目录资源信息
+     *
      * @param roleId 角色Id
-     * @return
+     * @return R
      */
     @GetMapping("/role/source/list")
     public R roleSourceList(@RequestParam("roleId") Integer roleId) {
@@ -70,8 +73,9 @@ public class UserRoleSourceController {
 
     /**
      * 根据目录资源id查有关角色信息
+     *
      * @param sourceId 目录资源Id
-     * @return
+     * @return R
      */
     @GetMapping("/source/role/list")
     public R sourceRoleList(@RequestParam("sourceId") Integer sourceId) {
@@ -81,8 +85,9 @@ public class UserRoleSourceController {
 
     /**
      * 增加新的目录资源
+     *
      * @param source 目录资源
-     * @return
+     * @return R
      */
     @PostMapping("/source/save")
     public R saveSource(ShopSource source) {
@@ -92,8 +97,9 @@ public class UserRoleSourceController {
 
     /**
      * 增加新的角色信息
+     *
      * @param role 角色信息
-     * @return
+     * @return R
      */
     @PostMapping("/role/save")
     public R saveRole(ShopRole role) {
@@ -106,8 +112,9 @@ public class UserRoleSourceController {
 
     /**
      * 根据用户名获取相应权限
+     *
      * @param username 用户名
-     * @return
+     * @return R
      */
     @GetMapping("/getSource")
     public R getSources(@RequestParam("username") String username) {
@@ -119,9 +126,10 @@ public class UserRoleSourceController {
 
     /**
      * 根据用户名获取响应权限的目录信息，组成树形结构
+     *
      * @param parentId 父id
      * @param username 用户名
-     * @return
+     * @return l
      */
     private List<Map<String, Object>> duplexList(Integer parentId, String username) {
 
@@ -138,11 +146,6 @@ public class UserRoleSourceController {
             if (list != null) {
                 m.put("children", list);
             }
-//            if (m.get("children") != null) {
-//                m.put("hasChildren", true);
-//            } else {
-//                m.put("hasChildren", false);
-//            }
             l.add(m);
         }
 

@@ -24,14 +24,6 @@ public class JdbcAccessTokenConverter implements AccessTokenConverter{
 
     private AccessTokenConverter tokenConverter = new DefaultAccessTokenConverter();
 
-    public void setAccessTokenConverter(AccessTokenConverter tokenConverter) {
-        this.tokenConverter = tokenConverter;
-    }
-
-    public AccessTokenConverter getAccessTokenConverter() {
-        return tokenConverter;
-    }
-
     @Override
     public Map<String, ?> convertAccessToken(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
         oAuth2AccessToken = this.enhance(oAuth2AccessToken, oAuth2Authentication);

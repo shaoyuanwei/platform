@@ -38,7 +38,7 @@ import java.util.*;
  * TODO:
  */
 @Configuration
-public class GatewayConfiguration  {
+public class GatewayConfiguration {
 
     private final List<ViewResolver> viewResolvers;
 
@@ -50,29 +50,36 @@ public class GatewayConfiguration  {
         this.serverCodecConfigurer = serverCodecConfigurer;
     }
 
-    // 初始化一个限流的过滤器
+    /**
+     * 初始化一个限流的过滤器
+     */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public GlobalFilter sentinelGatewayFilter() {
         return new SentinelGatewayFilter();
     }
 
-    // 配置初始化的限流参数
+
+    /**
+     * 配置初始化的限流参数
+     */
     @PostConstruct
     public void initGatewayRules() {
-        /**
-         * old 限流
+        /*
+          old 限流
          */
-/*        Set<GatewayFlowRule> rules = new HashSet<>();
+        /*
+        Set<GatewayFlowRule> rules = new HashSet<>();
         rules.add(
                 new GatewayFlowRule("product_route") // 资源名称，对应路由id
                 .setCount(1) // 限流阈值
                 .setIntervalSec(1) // 统计时间窗口，单位是秒，默认是1秒
         );
-        GatewayRuleManager.loadRules(rules);*/
+        GatewayRuleManager.loadRules(rules);
+        */
 
-        /**
-         * new 限流
+        /*
+          new 限流
          */
         Set<GatewayFlowRule> rules = new HashSet<>();
         rules.add(new GatewayFlowRule("product_api1").setCount(1).setIntervalSec(1));
@@ -80,14 +87,20 @@ public class GatewayConfiguration  {
         GatewayRuleManager.loadRules(rules);
     }
 
-    // 配置限流的异常处理器
+
+    /**
+     *  配置限流的异常处理器
+     * @return SentinelGatewayBlockExceptionHandler
+     */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler() {
         return new SentinelGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer);
     }
 
-    // 自定义限流异常页面
+    /**
+     * 自定义限流异常页面
+     */
     @PostConstruct
     public void initBlockHandlers() {
         BlockRequestHandler blockRequestHandler = new BlockRequestHandler() {
@@ -103,7 +116,9 @@ public class GatewayConfiguration  {
         GatewayCallbackManager.setBlockHandler(blockRequestHandler);
     }
 
-    // 自定义API分组
+    /**
+     * 自定义API分组
+     */
     @PostConstruct
     public void initCustomizedApis() {
         Set<ApiDefinition> definitions = new HashSet<>();
@@ -111,7 +126,7 @@ public class GatewayConfiguration  {
                 .setPredicateItems(new HashSet<ApiPredicateItem>() {{
                     // 以/product-serv/product/api1开头的请求
                     add(new ApiPathPredicateItem().setPattern("/product-serv/product/api1/**")
-                    .setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
+                            .setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
                 }});
         ApiDefinition api2 = new ApiDefinition("product_api2")
                 .setPredicateItems(new HashSet<ApiPredicateItem>() {{
@@ -122,4 +137,5 @@ public class GatewayConfiguration  {
         definitions.add(api2);
         GatewayApiDefinitionManager.loadApiDefinitions(definitions);
     }
+    
 }

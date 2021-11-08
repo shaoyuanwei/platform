@@ -10,6 +10,11 @@ import com.itsyw.domain.OauthClientDetails;
  */
 public interface OauthService {
 
+    /**
+     * 加载客户端
+     * @param clientId 客户端ID
+     * @return OauthClientDetails
+     */
     OauthClientDetails loadOauthClientDeatils(String clientId);
 
 }

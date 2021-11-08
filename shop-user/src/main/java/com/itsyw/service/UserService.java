@@ -15,15 +15,29 @@ public interface UserService {
 
     /**
      * 根据用户名查询用户
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return User
      */
     User findByPUsername(String username);
 
+    /**
+     * 添加用户信息
+     * @param user 用心信息
+     * @return User
+     */
     User save(User user);
 
+    /**
+     * 用户分页查询
+     * @param pageNo 页数
+     * @return Page<User>
+     */
     Page<User> findAll(Integer pageNo);
 
+    /**
+     * 查所有用户
+     * @return List<User>
+     */
     List<User> findAll();
 
 }

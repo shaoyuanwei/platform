@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -108,7 +107,7 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
     /**
      * 认证服务器的安全设置
      *
-     * @param security
+     * @param security 安全配置
      * @throws Exception
      */
     @Override

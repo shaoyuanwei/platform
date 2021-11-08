@@ -2,15 +2,12 @@ package com.itsyw.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.itsyw.constant.HttpStatusCode;
-import com.itsyw.domain.Product;
 import com.itsyw.domain.User;
 import com.itsyw.service.UserService;
-import com.itsyw.utils.MD5Utils;
 import com.itsyw.utils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +28,8 @@ public class UserController {
     /**
      * 根据username获取用户信息
      *
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return User
      */
     @GetMapping("/info")
     public User getOne(@RequestParam("username") String username) {
@@ -51,8 +48,8 @@ public class UserController {
 
     /**
      * 分页查询
-     * @param pageNo
-     * @return
+     * @param pageNo 页数
+     * @return R
      */
     @GetMapping("/list")
     public R listByPageNo(@RequestParam("pageNo") Integer pageNo) {
@@ -64,7 +61,7 @@ public class UserController {
 
     /**
      * 查询
-     * @return
+     * @return R
      */
     @GetMapping("/list/all")
     public R list() {
@@ -76,8 +73,8 @@ public class UserController {
 
     /**
      * 注册
-     * @param user
-     * @return
+     * @param user 用户信息
+     * @return R
      */
     @PutMapping("/register")
     public R register(User user) {

@@ -11,9 +11,28 @@ import java.util.Map;
  */
 public interface UserRoleSourceService {
 
+    /**
+     * 根据用户名及目录资源父ID查找角色资源
+     *
+     * @param username 用户名
+     * @param parentId 目录资源父ID
+     * @return List<Map < String, Object>>
+     */
     List<Map<String, Object>> findRoleSourceByUser(String username, Integer parentId);
 
+    /**
+     * 根据角色ID找目录资源
+     *
+     * @param roleId 角色ID
+     * @return List<Map < String, Object>>
+     */
     List<Map<String, Object>> findSourceByRoleId(Integer roleId);
 
+    /**
+     * 根据目录资源ID找角色
+     *
+     * @param sourceId 目录资源ID
+     * @return List<Map < String, Object>>
+     */
     List<Map<String, Object>> findRoleBySourceId(Integer sourceId);
 }

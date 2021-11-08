@@ -2,8 +2,6 @@ package com.itsyw.utils;
 
 /**
  * 正则表达式工具类
- * <p>Title: RegexpUtils</p>
- * <p>Description: </p>
  *
  * @author Lusifer
  * @version 1.0.0

@@ -16,14 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 // value用于声明指定调用得提供者得name
 // fallback 用于指定当前fegin接口的容错类
+//@FeginClient得value + @RequestMapping得value值 就是完成得请求地址 "http://service-product/product/{pid}"
 @FeignClient(value = "service-product",
 //        fallback = ProductServiceFallBack.class,
         configuration = FeginConfig.class,
         fallbackFactory = ProductServiceFallbackFactory.class)
 public interface ProductService {
 
-    // @FeginClient得value + @RequestMapping得value值 就是完成得请求地址 "http://service-product/product/{pid}"
-    // 指定请求得URI部分
+    /**
+     * 指定请求得URI部分
+     * @param pid 产品pid
+     * @return Product
+     */
     @RequestMapping("/product/{pid}")
     Product findByPId(@PathVariable("pid") Integer pid);
 

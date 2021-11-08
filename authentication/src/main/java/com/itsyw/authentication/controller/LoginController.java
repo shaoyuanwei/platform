@@ -4,8 +4,6 @@ import com.itsyw.utils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
@@ -31,18 +29,15 @@ public class LoginController {
     /**
      * 把当前的请求缓存到 session 里去
      */
-    private RequestCache requestCache = new HttpSessionRequestCache();
+    private final RequestCache requestCache = new HttpSessionRequestCache();
 
     /**
      * 重定向 策略
      */
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Autowired
     private ConsumerTokenServices consumerTokenServices;
-
-    @Autowired
-    private SecurityProperties securityProperties;
 
     @RequestMapping("/authentication/require")
     public R requireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {

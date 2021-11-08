@@ -1,6 +1,5 @@
 package com.itsyw.authentication.service.impl;
 
-import com.itsyw.authentication.component.CustomPasswordEncoder;
 import com.itsyw.authentication.dao.UserDao;
 import com.itsyw.domain.User;
 import lombok.extern.slf4j.Slf4j;

@@ -21,23 +21,31 @@ import java.util.List;
 @Component
 public class LogGatewayFilterFactory extends AbstractGatewayFilterFactory<LogGatewayFilterFactory.Config> {
 
-    // 构造函数
+    /**
+     * 构造函数
+     */
     public LogGatewayFilterFactory() {
         super(LogGatewayFilterFactory.Config.class);
     }
 
-    // 读取配置文件中的参数， 赋值到配置类中
-
+    /**
+     *  读取配置文件中的参数， 赋值到配置类中
+     * @return  List<String>
+     */
     @Override
     public List<String> shortcutFieldOrder() {
         return Arrays.asList("consoleLog", "cacheLog");
     }
 
-    // 过滤器逻辑
+    /**
+     * 过滤器逻辑
+     * @param config gateway配置
+     * @return GatewayFilter
+     */
     @Override
     public GatewayFilter apply(Config config) {
 
-        GatewayFilter gatewayFilter = (exchange, chain) -> {
+        return (exchange, chain) -> {
 
             if (config.isCacheLog()) {
                 System.out.println("cacheLog已经开启了");
@@ -48,15 +56,14 @@ public class LogGatewayFilterFactory extends AbstractGatewayFilterFactory<LogGat
 
             return chain.filter(exchange);
         };
-
-        return gatewayFilter;
     }
 
-    // 配置类 接收配置参数
+    /**
+     * 配置类 接收配置参数
+     */
     @Data
     @NoArgsConstructor
     public static class Config {
-
         private boolean consoleLog;
         private boolean cacheLog;
     }
